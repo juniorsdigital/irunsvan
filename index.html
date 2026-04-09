@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IRUNSVAN — Built to Break Limits</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #7FFF00;
+      --green-dim: #5DCC00;
+      --green-glow: rgba(127,255,0,0.15);
+      --orange: #FF6B00;
+      --dark: #0A0A0A;
+      --mid: #111111;
+      --card: #161616;
+      --border: #242424;
+      --white: #FFFFFF;
+      --gray: #888888;
+      --light: #F0F0F0;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--dark); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 18px 60px; background: rgba(10,10,10,0.88); backdrop-filter: blur(18px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 4px; color: var(--white); text-decoration: none; }
+    .nav-logo span { color: var(--green); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { background: var(--green) !important; color: var(--dark) !important; padding: 10px 24px; border-radius: 4px; font-weight: 800 !important; letter-spacing: 1px !important; transition: background 0.2s !important; }
+    .nav-cta:hover { background: var(--green-dim) !important; }
+    .promo-banner { background: var(--green); color: var(--dark); text-align: center; padding: 10px; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-top: 73px; }
+    .promo-banner code { background: rgba(0,0,0,0.15); padding: 2px 8px; border-radius: 3px; font-family: 'Inter', monospace; margin-left: 8px; color: var(--dark); }
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 0 60px; position: relative; overflow: hidden; background: var(--dark); }
+    .hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 600px; height: 600px; background: radial-gradient(ellipse at center, rgba(127,255,0,0.07) 0%, transparent 70%); pointer-events: none; }
+    .hero-bg-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Bebas Neue', sans-serif; font-size: 280px; color: rgba(127,255,0,0.03); white-space: nowrap; pointer-events: none; letter-spacing: 20px; z-index: 0; }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
+    .hero-eyebrow::before { content: ''; display: block; width: 30px; height: 2px; background: var(--green); }
+    .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px, 8vw, 110px); line-height: 0.95; letter-spacing: 2px; margin-bottom: 24px; }
+    .hero h1 em { font-style: normal; color: var(--green); display: block; }
+    .hero-sub { font-size: 16px; color: var(--gray); line-height: 1.7; max-width: 420px; margin-bottom: 40px; }
+    .hero-actions { display: flex; gap: 16px; align-items: center; }
+    .btn-primary { background: var(--green); color: var(--dark); text-decoration: none; padding: 16px 36px; font-weight: 800; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; border-radius: 4px; transition: transform 0.2s, background 0.2s, box-shadow 0.2s; display: inline-block; }
+    .btn-primary:hover { background: var(--green-dim); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(127,255,0,0.3); }
+    .btn-ghost { color: var(--white); text-decoration: none; padding: 16px 36px; font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--border); border-radius: 4px; transition: border-color 0.2s, transform 0.2s, color 0.2s; display: inline-block; }
+    .btn-ghost:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
+    .hero-stats { display: flex; gap: 40px; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--border); }
+    .stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 44px; color: var(--white); line-height: 1; }
+    .stat-val span { color: var(--green); }
+    .stat-label { font-size: 11px; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+    .hero-visual { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; height: 100%; padding: 120px 0 80px; }
+    .hero-shoe-card { position: relative; width: 100%; max-width: 520px; }
+    .hero-shoe-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(127,255,0,0.12) 0%, transparent 70%); border-radius: 50%; }
+    .hero-shoe-img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 20px; display: block; filter: saturate(1.2) contrast(1.05); }
+    .hero-badge { position: absolute; top: 28px; right: -16px; background: var(--green); color: var(--dark); border-radius: 50%; width: 90px; height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 1px; text-align: center; line-height: 1.3; box-shadow: 0 0 30px rgba(127,255,0,0.45); font-weight: 900; }
+    .hero-badge strong { font-size: 22px; }
+    .marquee-wrap { overflow: hidden; background: var(--green); padding: 14px 0; }
+    .marquee-track { display: flex; animation: marquee 18s linear infinite; white-space: nowrap; }
+    .marquee-item { display: inline-flex; align-items: center; gap: 16px; padding: 0 32px; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 3px; color: var(--dark); }
+    .marquee-dot { width: 6px; height: 6px; background: rgba(0,0,0,0.3); border-radius: 50%; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    section { padding: 100px 60px; }
+    .section-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 16px; }
+    .section-eyebrow::before { content: ''; display: block; width: 24px; height: 2px; background: var(--green); }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 72px); line-height: 1; letter-spacing: 2px; margin-bottom: 16px; }
+    .section-title em { font-style: normal; color: var(--green); }
+    .section-sub { font-size: 15px; color: var(--gray); max-width: 520px; line-height: 1.7; margin-bottom: 56px; }
+    #bestsellers { background: var(--mid); }
+    .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; cursor: pointer; position: relative; }
+    .product-card:hover { transform: translateY(-8px); border-color: var(--green); box-shadow: 0 20px 50px rgba(127,255,0,0.12); }
+    .product-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; transition: transform 0.4s; }
+    .product-card:hover .product-img { transform: scale(1.05); }
+    .product-tag { position: absolute; top: 16px; left: 16px; background: var(--green); color: var(--dark); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; }
+    .product-info { padding: 20px; }
+    .product-name { font-size: 14px; font-weight: 700; line-height: 1.4; margin-bottom: 10px; }
+    .product-pricing { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .price-sale { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--green); letter-spacing: 1px; }
+    .price-original { font-size: 13px; color: var(--gray); text-decoration: line-through; }
+    .price-save { background: rgba(127,255,0,0.1); color: var(--green); font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; }
+    .product-cta { display: block; margin-top: 16px; background: transparent; border: 1px solid var(--border); color: var(--white); text-align: center; padding: 10px; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: background 0.2s, border-color 0.2s, color 0.2s; text-decoration: none; }
+    .product-cta:hover { background: var(--green); border-color: var(--green); color: var(--dark); }
+    #categories { background: var(--dark); }
+    .categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .category-card { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 3/4; cursor: pointer; border: 1px solid var(--border); }
+    .category-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; filter: brightness(0.65); }
+    .category-card:hover img { transform: scale(1.08); filter: brightness(0.45); }
+    .category-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%); display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; }
+    .category-name { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; line-height: 1; margin-bottom: 8px; }
+    .category-link { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); text-decoration: none; opacity: 0; transform: translateY(8px); transition: opacity 0.3s, transform 0.3s; }
+    .category-card:hover .category-link { opacity: 1; transform: translateY(0); }
+    #features { background: var(--mid); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .features-visual { position: relative; }
+    .features-img { width: 100%; border-radius: 16px; object-fit: cover; aspect-ratio: 4/5; }
+    .features-stat-pill { position: absolute; bottom: -20px; left: -20px; background: var(--green); color: var(--dark); padding: 20px 28px; border-radius: 12px; box-shadow: 0 20px 40px rgba(127,255,0,0.25); }
+    .features-stat-pill .val { font-family: 'Bebas Neue', sans-serif; font-size: 42px; line-height: 1; }
+    .features-stat-pill .label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; margin-top: 2px; }
+    .features-content { padding: 20px 0; }
+    .features-list { list-style: none; display: flex; flex-direction: column; gap: 28px; margin-top: 40px; }
+    .feature-item { display: flex; gap: 20px; align-items: flex-start; }
+    .feature-icon { width: 48px; height: 48px; border-radius: 10px; background: rgba(127,255,0,0.08); border: 1px solid rgba(127,255,0,0.2); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .feature-text h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .feature-text p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+    #trust { background: var(--dark); padding: 60px; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .trust-item { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40px 20px; border-right: 1px solid var(--border); }
+    .trust-item:last-child { border-right: none; }
+    .trust-icon { font-size: 36px; margin-bottom: 16px; }
+    .trust-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; margin-bottom: 8px; color: var(--green); }
+    .trust-desc { font-size: 13px; color: var(--gray); line-height: 1.6; max-width: 200px; }
+    #reviews { background: var(--mid); }
+    .reviews-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .review-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: border-color 0.3s; }
+    .review-card:hover { border-color: var(--green); }
+    .review-stars { color: var(--green); font-size: 16px; margin-bottom: 16px; }
+    .review-text { font-size: 14px; color: var(--light); line-height: 1.7; margin-bottom: 24px; }
+    .review-author { display: flex; align-items: center; gap: 12px; }
+    .review-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--green); color: var(--dark); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 16px; font-weight: 900; flex-shrink: 0; }
+    .review-name { font-size: 14px; font-weight: 700; }
+    .review-meta { font-size: 12px; color: var(--gray); margin-top: 2px; }
+    #faq { background: var(--dark); }
+    .faq-wrap { max-width: 760px; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-q { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; cursor: pointer; font-size: 16px; font-weight: 600; gap: 20px; }
+    .faq-toggle { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--green); font-size: 20px; line-height: 1; transition: background 0.2s, border-color 0.2s; }
+    .faq-item.open .faq-toggle { background: var(--green); border-color: var(--green); color: var(--dark); }
+    .faq-a { font-size: 14px; color: var(--gray); line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s; }
+    .faq-item.open .faq-a { max-height: 200px; padding-bottom: 24px; }
+    #blog { background: var(--mid); }
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .blog-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.3s, border-color 0.3s; }
+    .blog-card:hover { transform: translateY(-6px); border-color: var(--green); }
+    .blog-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+    .blog-body { padding: 24px; }
+    .blog-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+    .blog-title { font-size: 16px; font-weight: 700; line-height: 1.5; margin-bottom: 12px; }
+    .blog-excerpt { font-size: 13px; color: var(--gray); line-height: 1.6; }
+    .cta-band { background: var(--green); padding: 80px 60px; display: flex; align-items: center; justify-content: space-between; gap: 40px; position: relative; overflow: hidden; }
+    .cta-band-bg { position: absolute; right: -60px; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 200px; color: rgba(0,0,0,0.06); white-space: nowrap; pointer-events: none; }
+    .cta-band h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 4vw, 60px); line-height: 1.05; letter-spacing: 2px; position: relative; color: var(--dark); }
+    .cta-band p { font-size: 15px; color: rgba(0,0,0,0.65); margin-top: 8px; position: relative; }
+    .cta-band p strong { color: var(--dark); }
+    .btn-dark { background: var(--dark); color: var(--green); text-decoration: none; padding: 18px 44px; font-weight: 800; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; border-radius: 4px; white-space: nowrap; transition: transform 0.2s, box-shadow 0.2s; position: relative; flex-shrink: 0; }
+    .btn-dark:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
+    footer { background: #050505; padding: 60px 60px 30px; border-top: 1px solid var(--border); }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
+    .footer-brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 4px; margin-bottom: 14px; }
+    .footer-brand-name span { color: var(--green); }
+    .footer-desc { font-size: 13px; color: var(--gray); line-height: 1.7; max-width: 260px; margin-bottom: 24px; }
+    .footer-col h5 { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a { font-size: 13px; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--green); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--gray); }
+    .footer-socials { display: flex; gap: 12px; }
+    .social-btn { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; transition: border-color 0.2s, background 0.2s; text-decoration: none; color: var(--gray); }
+    .social-btn:hover { border-color: var(--green); background: rgba(127,255,0,0.08); color: var(--green); }
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 1100px) { .products-grid { grid-template-columns: repeat(2, 1fr); } .categories-grid { grid-template-columns: repeat(2, 1fr); } .reviews-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { nav { padding: 16px 24px; } .nav-links { display: none; } section, .hero, footer { padding-left: 24px; padding-right: 24px; } .hero { grid-template-columns: 1fr; padding-top: 80px; } .hero-visual { display: none; } #features { grid-template-columns: 1fr; padding: 60px 24px; } .features-visual { display: none; } #trust { grid-template-columns: 1fr; } .trust-item { border-right: none; border-bottom: 1px solid var(--border); } .footer-top { grid-template-columns: 1fr 1fr; } .cta-band { flex-direction: column; text-align: center; padding: 60px 24px; } .products-grid { grid-template-columns: 1fr; } .categories-grid { grid-template-columns: 1fr 1fr; } .blog-grid { grid-template-columns: 1fr; } .reviews-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">IRUN<span>SVAN</span></a>
+    <ul class="nav-links">
+      <li><a href="#bestsellers">Shop</a></li>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#features">Technology</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#" class="nav-cta">Shop Now</a></li>
+    </ul>
+  </nav>
+
+  <div class="promo-banner">
+    🔥 Buy any shoe, get a free pair of socks — Use code <code>98K7JA6H32EJ</code>
+  </div>
+
+  <section class="hero">
+    <div class="hero-bg-text">RUN</div>
+    <div class="hero-content reveal">
+      <div class="hero-eyebrow">New Drop 2026</div>
+      <h1>Built To <em>Break Limits</em></h1>
+      <p class="hero-sub">Carbon-plated technology engineered for elite performance — from trail to marathon. Light as air, fast as fire.</p>
+      <div class="hero-actions">
+        <a href="#bestsellers" class="btn-primary">Shop Best Sellers</a>
+        <a href="#features" class="btn-ghost">See Technology</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-val">53<span>%</span></div><div class="stat-label">Avg Discount</div></div>
+        <div><div class="stat-val">20<span>km+</span></div><div class="stat-label">Marathon Ready</div></div>
+        <div><div class="stat-val">1<span>-2d</span></div><div class="stat-label">Fast Shipping</div></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="hero-shoe-card">
+        <div class="hero-shoe-bg"></div>
+        <img class="hero-shoe-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/2c76d65592900682e477396c1e93d9c1eb0047f1.jpg" alt="IRUNSVAN Shadow Wing 2.0 Pro" />
+        <div class="hero-badge"><strong>SALE</strong>UP TO<br>53% OFF</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">Carbon Fiber Plate <span class="marquee-dot"></span></span>
+      <span class="marquee-item">PEPRAX Nylon Tech <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Marathon Ready <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Trail Domination <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Free Shipping 1-2 Days <span class="marquee-dot"></span></span>
+      <span class="marquee-item">20km+ Certified <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Free Socks With Every Pair <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Carbon Fiber Plate <span class="marquee-dot"></span></span>
+      <span class="marquee-item">PEPRAX Nylon Tech <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Marathon Ready <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Trail Domination <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Free Shipping 1-2 Days <span class="marquee-dot"></span></span>
+      <span class="marquee-item">20km+ Certified <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Free Socks With Every Pair <span class="marquee-dot"></span></span>
+    </div>
+  </div>
+
+  <section id="bestsellers">
+    <div class="reveal">
+      <div class="section-eyebrow">Top Picks</div>
+      <h2 class="section-title">Best <em>Sellers</em></h2>
+      <p class="section-sub">Our most-loved shoes, engineered for every type of runner — from first 5K to race-day podium.</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal">
+        <span class="product-tag">SALE</span>
+        <img class="product-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1f52de09b08f8c0d9ed1d417ed335f8f5c6b0e34.jpg" alt="HEAT 1.0"/>
+        <div class="product-info">
+          <div class="product-name">HEAT 1.0 PEPRAX Nylon Plated Road Running Shoes</div>
+          <div class="product-pricing"><span class="price-sale">$59.99</span><span class="price-original">$127.99</span><span class="price-save">-53%</span></div>
+          <a href="#" class="product-cta">Add to Cart</a>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <img class="product-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/084bbd4b8126dad3953a67d8077213e8825dd67a.jpg" alt="HEAT 2.0"/>
+        <div class="product-info">
+          <div class="product-name">HEAT 2.0 Carbon Plated Trail Running Shoes</div>
+          <div class="product-pricing"><span class="price-sale">$79.99</span></div>
+          <a href="#" class="product-cta">Shop Now</a>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <img class="product-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/910a107a57edb5737c4ad9752f59230e483d9e9d.jpg" alt="Shadow Wing 2.0"/>
+        <div class="product-info">
+          <div class="product-name">Shadow Wing 2.0 — 20KM+ Carbon Fiber Marathon Shoes</div>
+          <div class="product-pricing"><span class="price-sale">$89.99</span></div>
+          <a href="#" class="product-cta">Shop Now</a>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <span class="product-tag">SALE</span>
+        <img class="product-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/2c76d65592900682e477396c1e93d9c1eb0047f1.jpg" alt="Shadow Wing 2.0+"/>
+        <div class="product-info">
+          <div class="product-name">Shadow Wing 2.0+ Carbon Plated Marathon Shoes</div>
+          <div class="product-pricing"><span class="price-sale">$73.69</span><span class="price-original">$227.99</span><span class="price-save">-68%</span></div>
+          <a href="#" class="product-cta">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="categories">
+    <div class="reveal">
+      <div class="section-eyebrow">Explore</div>
+      <h2 class="section-title">Shop By <em>Category</em></h2>
+      <p class="section-sub">Find the right shoe for your mission — whether you're on the road, trail, or the track.</p>
+    </div>
+    <div class="categories-grid">
+      <div class="category-card reveal"><img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/676bfe90bc6af38ed342020f0b8a69bcda4fdd8a.jpg" alt="Marathon Road Running"/><div class="category-overlay"><div class="category-name">Marathon Road Running</div><a href="#" class="category-link">Shop Now →</a></div></div>
+      <div class="category-card reveal"><img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/63b9329f77623b3aca59952a75f671111ceccdde.jpg" alt="Trail Hiking"/><div class="category-overlay"><div class="category-name">Trail Hiking &amp; Running</div><a href="#" class="category-link">Shop Now →</a></div></div>
+      <div class="category-card reveal"><img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/b42aeb7be4bcd3b7311ffad4149233252a26c4db.jpg" alt="Physical Training"/><div class="category-overlay"><div class="category-name">Physical Training</div><a href="#" class="category-link">Shop Now →</a></div></div>
+      <div class="category-card reveal"><img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/f69828caa3e57d7130a4a102f29afd04d330df5a.jpg" alt="Beginner Runner"/><div class="category-overlay"><div class="category-name">Beginner Runner</div><a href="#" class="category-link">Shop Now →</a></div></div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="features-visual reveal">
+      <img class="features-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5b553ffd79005a3d10bc59fb2f9d667f8e15fe6e.jpg" alt="Carbon Fiber Technology" />
+      <div class="features-stat-pill"><div class="val">20km+</div><div class="label">Marathon Certified</div></div>
+    </div>
+    <div class="features-content reveal">
+      <div class="section-eyebrow">Technology</div>
+      <h2 class="section-title">Why <em>IRUNSVAN</em></h2>
+      <p class="section-sub">We engineer performance tools built for people who push further, go harder, and run longer.</p>
+      <ul class="features-list">
+        <li class="feature-item"><div class="feature-icon">⚡</div><div class="feature-text"><h4>Carbon Fiber Plates</h4><p>Full-length carbon fiber and PEPRAX nylon plates deliver explosive energy return every stride.</p></div></li>
+        <li class="feature-item"><div class="feature-icon">🌡️</div><div class="feature-text"><h4>Heat-Ready Engineering</h4><p>HEAT series shoes keep your feet cool and dry in 35°C+ conditions without sacrificing speed.</p></div></li>
+        <li class="feature-item"><div class="feature-icon">🛡️</div><div class="feature-text"><h4>Quality Guarantee</h4><p>20-day return or exchange policy on all quality issues — because your confidence matters.</p></div></li>
+        <li class="feature-item"><div class="feature-icon">🚚</div><div class="feature-text"><h4>Free 1–2 Day Shipping</h4><p>Fast fulfillment so you're never waiting on your next race-day pair.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <div id="trust">
+    <div class="trust-item reveal"><div class="trust-icon">🚚</div><div class="trust-title">Free Shipping</div><div class="trust-desc">Orders ship within 1–2 business days. Free on every order, no minimum.</div></div>
+    <div class="trust-item reveal"><div class="trust-icon">🔄</div><div class="trust-title">20-Day Warranty</div><div class="trust-desc">Quality issue? We'll exchange or refund it — no questions asked within 20 days.</div></div>
+    <div class="trust-item reveal"><div class="trust-icon">💬</div><div class="trust-title">24/7 Support</div><div class="trust-desc">Real technical experts available around the clock for product and order help.</div></div>
+  </div>
+
+  <section id="reviews">
+    <div class="reviews-header reveal">
+      <div><div class="section-eyebrow">Social Proof</div><h2 class="section-title">Runners <em>Love Us</em></h2></div>
+      <a href="#" class="btn-ghost" style="white-space:nowrap; margin-bottom:16px;">Read All Reviews</a>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal"><div class="review-stars">★★★★★</div><p class="review-text">"The Shadow Wing 2.0+ absolutely carried me through my first marathon. I PR'd by 4 minutes and my legs felt fresh at the finish. Cannot recommend enough."</p><div class="review-author"><div class="review-avatar">MK</div><div><div class="review-name">Marcus K.</div><div class="review-meta">Verified Buyer · Marathon Runner</div></div></div></div>
+      <div class="review-card reveal"><div class="review-stars">★★★★★</div><p class="review-text">"HEAT 2.0 is the only shoe I trust on technical trails. The grip is insane and the carbon plate makes climbs feel effortless. Incredible value at this price."</p><div class="review-author"><div class="review-avatar">JL</div><div><div class="review-name">Jamie L.</div><div class="review-meta">Verified Buyer · Trail Runner</div></div></div></div>
+      <div class="review-card reveal"><div class="review-stars">★★★★☆</div><p class="review-text">"Got these for daily training and the energy return is noticeably better than my previous pair. Shipping was incredibly fast too — arrived next day."</p><div class="review-author"><div class="review-avatar">TS</div><div><div class="review-name">Taylor S.</div><div class="review-meta">Verified Buyer · Recreational Runner</div></div></div></div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="reveal"><div class="section-eyebrow">Questions</div><h2 class="section-title">Got <em>Questions?</em></h2></div>
+    <div class="faq-wrap">
+      <div class="faq-item open"><div class="faq-q" onclick="toggleFaq(this)">What is the return policy?<div class="faq-toggle">−</div></div><div class="faq-a">Within 20 days of purchase, if there's a quality issue, we'll arrange a full return or exchange. Just reach out and we'll make it right.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">When will I get my order?<div class="faq-toggle">+</div></div><div class="faq-a">We fulfill and ship orders within 1–2 business days. Once your order has shipped, you'll receive a tracking email.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Where are your products manufactured?<div class="faq-toggle">+</div></div><div class="faq-a">We carefully select manufacturing partners globally to ensure every shoe meets our quality standards before it reaches you.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How much does shipping cost?<div class="faq-toggle">+</div></div><div class="faq-a">Shipping is free on all orders. No hidden fees, ever.</div></div>
+    </div>
+  </section>
+
+  <section id="blog">
+    <div class="reveal"><div class="section-eyebrow">From The Blog</div><h2 class="section-title">Run <em>Smarter</em></h2><p class="section-sub">Tips, tech, and training insights from the IRUNSVAN team and community.</p></div>
+    <div class="blog-grid">
+      <div class="blog-card reveal"><img class="blog-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/b42aeb7be4bcd3b7311ffad4149233252a26c4db.jpg" alt="Beat the heat"/><div class="blog-body"><div class="blog-tag">Performance</div><div class="blog-title">Beat the Heat and Crush Your Runs with the HEAT 2.0 PRO 🔥</div><div class="blog-excerpt">Engineered for hot-weather performance, keeping your feet cool and comfortable even in 35°C+ conditions.</div></div></div>
+      <div class="blog-card reveal"><img class="blog-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/676bfe90bc6af38ed342020f0b8a69bcda4fdd8a.jpg" alt="Eye-catching shoes"/><div class="blog-body"><div class="blog-tag">Style &amp; Gear</div><div class="blog-title">These Running Shoes Are So Eye-Catching 👀</div><div class="blog-excerpt">Our newest colorways are turning heads on the track. Here's what makes the IRUNSVAN lineup stand out.</div></div></div>
+      <div class="blog-card reveal"><img class="blog-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/f69828caa3e57d7130a4a102f29afd04d330df5a.jpg" alt="Carbon plate guide"/><div class="blog-body"><div class="blog-tag">Technology</div><div class="blog-title">Why Carbon Plates Make You a Faster Runner</div><div class="blog-excerpt">We break down the science behind IRUNSVAN's carbon fiber plate technology and real-world speed gains.</div></div></div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="cta-band-bg">RUN</div>
+    <div><h2>Ready to Break Your<br>Personal Record?</h2><p>Shop the full IRUNSVAN lineup and use code <strong>98K7JA6H32EJ</strong> for a free pair of socks.</p></div>
+    <a href="#bestsellers" class="btn-dark">Shop Now</a>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">IRUN<span>SVAN</span></div>
+        <p class="footer-desc">Carbon-plated performance footwear for every type of runner. From first 5K to race-day finish line.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn">𝕏</a>
+          <a href="#" class="social-btn">📸</a>
+          <a href="#" class="social-btn">▶</a>
+          <a href="#" class="social-btn">📌</a>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Shop</h5><ul><li><a href="#">Best Sellers</a></li><li><a href="#">Road Running</a></li><li><a href="#">Trail Running</a></li><li><a href="#">Physical Training</a></li><li><a href="#">Beginner</a></li></ul></div>
+      <div class="footer-col"><h5>Help</h5><ul><li><a href="#">FAQ</a></li><li><a href="#">Returns</a></li><li><a href="#">Shipping Info</a></li><li><a href="#">Size Guide</a></li><li><a href="#">Contact Us</a></li></ul></div>
+      <div class="footer-col"><h5>Company</h5><ul><li><a href="#">About IRUNSVAN</a></li><li><a href="#">Blog</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><div>© 2026 IRUNSVAN. All rights reserved.</div><div>Made for runners. By runners.</div></div>
+  </footer>
+
+  <script>
+    function toggleFaq(el) {
+      const item = el.closest('.faq-item');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        if (i !== item) { i.classList.remove('open'); i.querySelector('.faq-toggle').textContent = '+'; }
+      });
+      const isOpen = item.classList.toggle('open');
+      el.querySelector('.faq-toggle').textContent = isOpen ? '−' : '+';
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    window.addEventListener('scroll', () => {
+      let current = '';
+      document.querySelectorAll('section[id], div[id]').forEach(sec => { if (window.scrollY >= sec.offsetTop - 120) current = sec.id; });
+      document.querySelectorAll('.nav-links a').forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--white)' : ''; });
+    });
+  </script>
+
+</body>
+</html>
